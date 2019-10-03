@@ -14,7 +14,7 @@
 
 <body>
     <center>
-        <div id="container" class="container">
+        <div id="container" class="container" style="margin-top:5%;">
             <h2>List of Items</h2>
             <table id="table" class="table table-striped">
                 <thead>
@@ -28,7 +28,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="container" style="margin-top:15%;">
+        <div class="container">
             <!-- Trigger the modal with a button -->
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Item</button>
 
@@ -45,16 +45,31 @@
                         <div class="modal-body">
                             <form>
 
-                                <input class="form-control" type="text" id='item' placeholder="Item"><br>
-
-                                <input class="form-control" type="number" id="quantity" placeholder="Quantity"><br>
-
-                                <input class="form-control" type="number" id="priority" placeholder="Priority">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">Item</span>
+                                  </div>
+                                  <input type="text" class="form-control" id="item" required></input>
+                                </div>
+                                <br>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">Quantity</span>
+                                  </div>
+                                  <input type="number" class="form-control" id="quantity" required></input>
+                                </div>
+                                <br>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">Priority</span>
+                                  </div>
+                                  <input type="number" class="form-control" id="priority" required></input>
+                                </div>
 
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button id="add" type="button" class="btn btn-info btn-lg" data-dismiss="modal">Add</button>
+                            <button id="add" type="button" class="btn btn-info btn-lg">Add</button>
                         </div>
                     </div>
                 </div>
@@ -65,27 +80,24 @@
 
 
     <script>
-        $(document).ready(function () {
-            
+        $(document).ready(function () { 
             item = $('#item');
             quantity = $('#quantity');
             priority = $('#priority');
-            table = $("#table").html();
             $('#add').click(function (e) {
-                $("#container").show();
                 e.preventDefault();
-                var content = "<tr><td>" + item.val() + "</td><td>" + quantity.val() + "</td><td>" + priority.val() + "</td></tr>";
-                $("table tbody").append(content);
-                $.ajax({
-                    url: '/item/add',
-                    type: 'PUT',
-                    dataType: 'JSON',
-                    data: { item: item.val(), quantity: quantity.val(), priority: priority.val(), table: table },
-                    success: function (res) {
-                        alert(res)
-                    }
-                })
-
+                    var content = "<tr><td>" + item.val() + "</td><td>" + quantity.val() + "</td><td>" + priority.val() + "</td></tr>";
+                    $("table tbody").append(content);
+                    $.ajax({
+                        url: '/item/create',
+                        type: 'PUT',
+                        dataType: 'JSON',
+                        data: { item: item.val(), quantity: quantity.val(), priority: priority.val()},
+                        success: function (res) {
+                            alert(res)
+                        }
+                    })
+                
             })
         })
 

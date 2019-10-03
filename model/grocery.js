@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost/myshop', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/grocery', { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
@@ -14,11 +14,11 @@ var shoppingSchema = new mongoose.Schema({
     },
 
     quantity: {
-        type: Number,
+        type: Number
     },
 
     priority: {
-        type: String
+        type: Number
     }
 
 });
